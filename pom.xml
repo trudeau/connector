@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.99soft.trudeau</groupId>
     <artifactId>trudeau-parent</artifactId>
-    <version>1-SNAPSHOT</version>
+    <version>1</version>
   </parent>
 
   <artifactId>org.99soft.trudeau.connector</artifactId>
@@ -28,7 +28,7 @@
 
   <name>Trudeau - Connector EDSL</name>
   <description>EDSL to build Graph instances using fluent connectors.</description>
-  <url>https://github.com/trudeau/connector</url>
+  <url>http://trudeau.github.io/connector</url>
 
   <scm>
     <url>http://github.com/trudeau/connector</url>
@@ -43,6 +43,12 @@
     <system>Trevis CI</system>
     <url>https://travis-ci.org/trudeau/connector/</url>
   </ciManagement>
+  <distributionManagement>
+    <site>
+      <id>github</id>
+      <url>gitsite:git@github.com/trudeau/connector.git</url>
+    </site>
+  </distributionManagement>
 
   <dependencies>
     <dependency>
