@@ -11,8 +11,6 @@ While developing _Trudeau_ APIs, we soon realized that having Collections-alike 
 UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> expected =
     new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
-// building Graph with traditional APIs...
-
 BaseLabeledVertex start = new BaseLabeledVertex( "start" );
 BaseLabeledVertex a = new BaseLabeledVertex( "a" );
 BaseLabeledVertex b = new BaseLabeledVertex( "b" );
@@ -43,6 +41,10 @@ expected.addEdge( e, new BaseLabeledWeightedEdge<Double>( "e <-> goal", 2D ), go
 using the `connector` module, users can write that same procedure in a more elegant way:
 
 ```
+import static org.nnsoft.trudeau.connector.GraphPopulator.populate;
+
+...
+
 UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
     populate( new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>() )
     .withConnections( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
