@@ -8,6 +8,12 @@ EDSL to build Graph instances using fluent APIs.
 While developing _Trudeau_ APIs, we soon realized that having Collections-alike APIs for populating Graphes forces developers on writing boilerplate and boring code, so rather than having
 
 ```
+import org.nnsoft.trudeau.inmemory.UndirectedMutableGraph;
+import org.nnsoft.trudeau.inmemory.labeled.BaseLabeledVertex;
+import org.nnsoft.trudeau.inmemory.labeled.BaseLabeledWeightedEdge;
+
+...
+
 UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> expected =
     new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
@@ -42,6 +48,10 @@ using the `connector` module, users can write that same procedure in a more eleg
 
 ```
 import static org.nnsoft.trudeau.connector.GraphPopulator.populate;
+
+import org.nnsoft.trudeau.inmemory.UndirectedMutableGraph;
+import org.nnsoft.trudeau.inmemory.labeled.BaseLabeledVertex;
+import org.nnsoft.trudeau.inmemory.labeled.BaseLabeledWeightedEdge;
 
 ...
 
