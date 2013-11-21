@@ -27,7 +27,7 @@ import org.nnsoft.trudeau.api.MutableGraph;
  * @param <E> the Graph edges type
  * @param <G> the Graph type
  */
-public final class DefaultLinkedConnectionBuilder<V, E, G extends MutableGraph<V, E>>
+final class DefaultLinkedConnectionBuilder<V, E, G extends MutableGraph<V, E>>
     implements LinkedConnectionBuilder<V, E, G>
 {
 
