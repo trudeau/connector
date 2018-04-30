@@ -20,16 +20,16 @@ package org.nnsoft.trudeau.connector;
  * TODO Fillme!!!
  *
  * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
  */
-public interface TailVertexConnector<V>
+public interface MutableValueGraphConnection<V, E>
 {
 
     /**
-     * Specifies the tail vertex for the edge
+     * TODO Fillme!!
      *
-     * @param <T> the Graph vertex type
-     * @param tail the tail vertex
+     * @param grapher
      */
-    <T extends V> void to( T tail );
+    void connect( MutableValueGraphConnector<V, E> grapher );
 
 }

@@ -1,7 +1,7 @@
 package org.nnsoft.trudeau.connector;
 
 /*
- *   Copyright 2013 The Trudeau Project
+ *   Copyright 2013 - 2018 The Trudeau Project
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -17,76 +17,143 @@ package org.nnsoft.trudeau.connector;
  */
 
 import static org.junit.Assert.assertEquals;
-import static org.nnsoft.trudeau.connector.GraphPopulator.populate;
+import static org.nnsoft.trudeau.connector.GraphConnector.populate;
 
 import org.junit.Test;
-import org.nnsoft.trudeau.inmemory.UndirectedMutableGraph;
-import org.nnsoft.trudeau.inmemory.labeled.BaseLabeledVertex;
-import org.nnsoft.trudeau.inmemory.labeled.BaseLabeledWeightedEdge;
+
+import com.google.common.graph.GraphBuilder;
+import com.google.common.graph.MutableGraph;
+import com.google.common.graph.MutableValueGraph;
+import com.google.common.graph.ValueGraphBuilder;
 
 public final class GraphConnectorTestCase
 {
 
     @Test
-    public void verifyProducedGraphesAreEquals()
+    public void verifyMutableGraphesAreEquals()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> expected =
-            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
+        final MutableGraph<String> expected = GraphBuilder.undirected().build();
 
         // building Graph with traditional APIs...
 
-        BaseLabeledVertex start = new BaseLabeledVertex( "start" );
-        BaseLabeledVertex a = new BaseLabeledVertex( "a" );
-        BaseLabeledVertex b = new BaseLabeledVertex( "b" );
-        BaseLabeledVertex c = new BaseLabeledVertex( "c" );
-        BaseLabeledVertex d = new BaseLabeledVertex( "d" );
-        BaseLabeledVertex e = new BaseLabeledVertex( "e" );
-        BaseLabeledVertex goal = new BaseLabeledVertex( "goal" );
+        String start = "start";
+        String a = "a";
+        String b = "b";
+        String c = "c";
+        String d = "d";
+        String e = "e";
+        String goal = "goal";
 
-        expected.addVertex( start );
-        expected.addVertex( a );
-        expected.addVertex( b );
-        expected.addVertex( c );
-        expected.addVertex( d );
-        expected.addVertex( e );
-        expected.addVertex( goal );
+        expected.addNode( start );
+        expected.addNode( a );
+        expected.addNode( b );
+        expected.addNode( c );
+        expected.addNode( d );
+        expected.addNode( e );
+        expected.addNode( goal );
 
-        expected.addEdge( start, new BaseLabeledWeightedEdge<Double>( "start <-> a", 1.5D ), a );
-        expected.addEdge( start, new BaseLabeledWeightedEdge<Double>( "start <-> d", 2D ), d );
+        expected.putEdge( start, a );
+        expected.putEdge( start, d );
 
-        expected.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 2D ), b );
-        expected.addEdge( b, new BaseLabeledWeightedEdge<Double>( "b <-> c", 3D ), c );
-        expected.addEdge( c, new BaseLabeledWeightedEdge<Double>( "c <-> goal", 3D ), goal );
+        expected.putEdge( a, b );
+        expected.putEdge( b, c );
+        expected.putEdge( c, goal );
 
-        expected.addEdge( d, new BaseLabeledWeightedEdge<Double>( "d <-> e", 3D ), e );
-        expected.addEdge( e, new BaseLabeledWeightedEdge<Double>( "e <-> goal", 2D ), goal );
+        expected.putEdge( d, e );
+        expected.putEdge( e, goal );
 
         // ... and using the EDSL :)
 
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
-            populate( new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>() )
-            .withConnections( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
+        final MutableGraph<String> actual = GraphBuilder.undirected().build();
+
+        populate( actual ).withConnections( new AbstractMutableGraphConnection<String>()
         {
 
             public void connect()
             {
-                BaseLabeledVertex start = addVertex( new BaseLabeledVertex( "start" ) );
-                BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
-                BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
-                BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "c" ) );
-                BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "d" ) );
-                BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "e" ) );
-                BaseLabeledVertex goal = addVertex( new BaseLabeledVertex( "goal" ) );
+                String start = addNode( "start" );
+                String a = addNode( "a" );
+                String b = addNode( "b" );
+                String c = addNode( "c" );
+                String d = addNode( "d" );
+                String e = addNode( "e" );
+                String goal = addNode( "goal" );
 
-                addEdge( new BaseLabeledWeightedEdge<Double>( "start <-> a", 1.5D ) ).from( start ).to( a );
-                addEdge( new BaseLabeledWeightedEdge<Double>( "start <-> d", 2D ) ).from( start ).to( d );
+                connect( start ).to( a );
+                connect( start ).to( d );
 
-                addEdge( new BaseLabeledWeightedEdge<Double>( "a <-> b", 2D ) ).from( a ).to( b );
-                addEdge( new BaseLabeledWeightedEdge<Double>( "b <-> c", 3D ) ).from( b ).to( c );
-                addEdge( new BaseLabeledWeightedEdge<Double>( "c <-> goal", 3D ) ).from( c ).to( goal );
+                connect( a ).to( b );
+                connect( b ).to( c );
+                connect( c ).to( goal );
 
-                addEdge( new BaseLabeledWeightedEdge<Double>( "d <-> e", 3D ) ).from( d ).to( e );
-                addEdge( new BaseLabeledWeightedEdge<Double>( "e <-> goal", 2D ) ).from( e ).to( goal );
+                connect( d ).to( e );
+                connect( e ).to( goal );
+            }
+
+        } );
+
+        assertEquals( expected, actual );
+    }
+
+    @Test
+    public void verifyMutableValueGraphesAreEquals()
+    {
+        final MutableValueGraph<String, String> expected = ValueGraphBuilder.undirected().build();
+
+        // building Graph with traditional APIs...
+
+        String start = "start";
+        String a = "a";
+        String b = "b";
+        String c = "c";
+        String d = "d";
+        String e = "e";
+        String goal = "goal";
+
+        expected.addNode( start );
+        expected.addNode( a );
+        expected.addNode( b );
+        expected.addNode( c );
+        expected.addNode( d );
+        expected.addNode( e );
+        expected.addNode( goal );
+
+        expected.putEdgeValue( start, a, "start <-> a" );
+        expected.putEdgeValue( start, d, "start <-> d" );
+
+        expected.putEdgeValue( a, b, "a <-> b" );
+        expected.putEdgeValue( b, c, "b <-> c" );
+        expected.putEdgeValue( c, goal, "c <-> goal" );
+
+        expected.putEdgeValue( d, e, "d <-> e" );
+        expected.putEdgeValue( e, goal, "e <-> goal" );
+
+        // ... and using the EDSL :)
+
+        final MutableValueGraph<String, String> actual = ValueGraphBuilder.undirected().build();
+
+        populate( actual ).withConnections( new AbstractMutableValueGraphConnection<String, String>()
+        {
+
+            public void connect()
+            {
+                String start = addNode( "start" );
+                String a = addNode( "a" );
+                String b = addNode( "b" );
+                String c = addNode( "c" );
+                String d = addNode( "d" );
+                String e = addNode( "e" );
+                String goal = addNode( "goal" );
+
+                putEdgeValue( "start <-> a" ).from( start ).to( a );
+                putEdgeValue( "start <-> d" ).from( start ).to( d );
+
+                putEdgeValue( "a <-> b" ).from( a ).to( b );
+                putEdgeValue( "b <-> c" ).from( b ).to( c );
+                putEdgeValue( "c <-> goal" ).from( c ).to( goal );
+
+                putEdgeValue( "d <-> e" ).from( d ).to( e );
+                putEdgeValue( "e <-> goal" ).from( e ).to( goal );
             }
 
         } );

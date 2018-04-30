@@ -1,7 +1,7 @@
 package org.nnsoft.trudeau.connector;
 
 /*
- *   Copyright 2013 The Trudeau Project
+ *   Copyright 2013 - 2018 The Trudeau Project
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ package org.nnsoft.trudeau.connector;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public interface GraphConnection<V, E>
+public interface MutableGraphConnection<V>
 {
 
     /**
@@ -30,6 +30,6 @@ public interface GraphConnection<V, E>
      *
      * @param grapher
      */
-    void connect( GraphConnector<V, E> grapher );
+    void connect( MutableGraphConnector<V> grapher );
 
 }

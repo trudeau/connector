@@ -1,7 +1,7 @@
 package org.nnsoft.trudeau.connector;
 
 /*
- *   Copyright 2013 The Trudeau Project
+ *   Copyright 2013 - 2018 The Trudeau Project
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -16,24 +16,31 @@ package org.nnsoft.trudeau.connector;
  *   limitations under the License.
  */
 
-import org.nnsoft.trudeau.api.MutableGraph;
-
 /**
- * TODO Fillme!!!
+ * TODO Fillme!!
  *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
- * @param <G> the Graph type
  */
-public interface LinkedConnectionBuilder<V, E, G extends MutableGraph<V, E>>
+public interface MutableValueGraphConnector<V, E>
 {
 
     /**
-     * Connects the graph.
+     * Adds a new vertex to graph.
      *
-     * @param graphConnection the {@link GraphConnection}
-     * @return the {@link org.nnsoft.trudeau.Graph} built from the connections.
+     * @param <N> the Graph vertices type
+     * @param node the vertex to add
+     * @return the vertex added
      */
-    G withConnections( GraphConnection<V, E> graphConnection );
+    <N extends V> N addNode( N node );
+
+    /**
+     * Adds a new edge to graph.
+     *
+     * @param <A> the Graph edges type
+     * @param arc the edge to add.
+     * @return the {@link HeadVertexConnector}
+     */
+    <A extends E> HeadVertexConnector<V> addEdge( A arc );
 
 }

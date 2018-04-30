@@ -1,7 +1,7 @@
 package org.nnsoft.trudeau.connector;
 
 /*
- *   Copyright 2013 The Trudeau Project
+ *   Copyright 2013 - 2018 The Trudeau Project
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -16,24 +16,23 @@ package org.nnsoft.trudeau.connector;
  *   limitations under the License.
  */
 
-import static org.nnsoft.trudeau.utils.Assertions.checkState;
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * TODO fill me!!
  *
  * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
  */
-public abstract class AbstractGraphConnection<V, E>
-    implements GraphConnection<V, E>
+public abstract class AbstractMutableGraphConnection<V>
+    implements MutableGraphConnection<V>
 {
 
-    private GraphConnector<V, E> connector;
+    private MutableGraphConnector<V> connector;
 
     /**
      * {@inheritDoc}
      */
-    public final void connect( GraphConnector<V, E> connector )
+    public final void connect( MutableGraphConnector<V> connector )
     {
         checkState( this.connector == null, "Re-entry not allowed!" );
         this.connector = connector;
@@ -55,21 +54,14 @@ public abstract class AbstractGraphConnection<V, E>
      * @param node the vertex to add
      * @return the vertex added
      */
-    protected final <N extends V> N addVertex( N node )
+    protected final <N extends V> N addNode( N node )
     {
-        return connector.addVertex( node );
+        return connector.addNode( node );
     }
 
-    /**
-     * Adds a new edge to graph connector.
-     *
-     * @param <A> the Graph edges type
-     * @param arc the edge to add.
-     * @return the {@link HeadVertexConnector}
-     */
-    protected final <A extends E> HeadVertexConnector<V, E> addEdge( A arc )
+    protected final <N extends V> TailVertexConnector<V> connect( N node )
     {
-        return connector.addEdge( arc );
+        return connector.connect( node );
     }
 
     /**
