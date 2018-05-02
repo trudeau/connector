@@ -20,17 +20,16 @@ package org.nnsoft.trudeau.connector;
  * TODO Fillme!!!
  *
  * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
  */
-public interface HeadVertexConnector<V>
+public interface GraphDescription<V>
 {
 
     /**
-     * Specifies the head vertex for the edge
+     * TODO Fillme!!
      *
-     * @param <H> the Graph vertex type
-     * @param head the head vertex
-     * @return {@link TailVertexConnector} builded from the head
+     * @param grapher
      */
-    <H extends V> TailVertexConnector<V> from( H head );
+    void connect( Grapher<V> grapher );
 
 }

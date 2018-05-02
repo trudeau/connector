@@ -16,31 +16,24 @@ package org.nnsoft.trudeau.connector;
  *   limitations under the License.
  */
 
+import com.google.common.graph.MutableValueGraph;
+
 /**
- * TODO Fillme!!
+ * TODO Fillme!!!
  *
- * @param <V> the Graph vertices type
+ * @param <N> the Graph nodes type
  * @param <E> the Graph edges type
+ * @param <G> the Graph type
  */
-public interface MutableGraphConnector<V>
+public interface LinkedValueGraphBuilder<N, E, G extends MutableValueGraph<N, E>>
 {
 
     /**
-     * Adds a new vertex to graph.
+     * Connects the graph.
      *
-     * @param <N> the Graph vertices type
-     * @param node the vertex to add
-     * @return the vertex added
+     * @param graphDescription the {@link ValueGraphDescription}
+     * @return the {@link org.nnsoft.trudeau.Graph} built from the connections.
      */
-    <N extends V> N addNode( N node );
-
-    /**
-     * Adds a new edge to graph.
-     *
-     * @param <A> the Graph edges type
-     * @param arc the edge to add.
-     * @return the {@link HeadVertexConnector}
-     */
-    <N extends V> TailVertexConnector<V> connect( N node );
+    G createConnections( ValueGraphDescription<N, E> graphDescription );
 
 }

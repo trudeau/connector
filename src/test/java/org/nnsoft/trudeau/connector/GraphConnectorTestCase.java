@@ -17,7 +17,7 @@ package org.nnsoft.trudeau.connector;
  */
 
 import static org.junit.Assert.assertEquals;
-import static org.nnsoft.trudeau.connector.GraphConnector.populate;
+import static org.nnsoft.trudeau.connector.GraphConnector.on;
 
 import org.junit.Test;
 
@@ -66,7 +66,7 @@ public final class GraphConnectorTestCase
 
         final MutableGraph<String> actual = GraphBuilder.undirected().build();
 
-        populate( actual ).withConnections( new AbstractMutableGraphConnection<String>()
+        on( actual ).createConnections( new AbstractGraphDescription<String>()
         {
 
             public void connect()
@@ -132,10 +132,10 @@ public final class GraphConnectorTestCase
 
         final MutableValueGraph<String, String> actual = ValueGraphBuilder.undirected().build();
 
-        populate( actual ).withConnections( new AbstractMutableValueGraphConnection<String, String>()
+        on( actual ).createConnections( new AbstractValueGraphDescription<String, String>()
         {
 
-            public void connect()
+            public void describe()
             {
                 String start = addNode( "start" );
                 String a = addNode( "a" );
@@ -145,15 +145,15 @@ public final class GraphConnectorTestCase
                 String e = addNode( "e" );
                 String goal = addNode( "goal" );
 
-                putEdgeValue( "start <-> a" ).from( start ).to( a );
-                putEdgeValue( "start <-> d" ).from( start ).to( d );
+                connect( start ).to( a ).via( "start <-> a" );
+                connect( start ).to( d ).via( "start <-> d" );
 
-                putEdgeValue( "a <-> b" ).from( a ).to( b );
-                putEdgeValue( "b <-> c" ).from( b ).to( c );
-                putEdgeValue( "c <-> goal" ).from( c ).to( goal );
+                connect( a ).to( b ).via( "a <-> b" );
+                connect( b ).to( c ).via( "b <-> c" );
+                connect( c ).to( goal ).via( "c <-> goal" );
 
-                putEdgeValue( "d <-> e" ).from( d ).to( e );
-                putEdgeValue( "e <-> goal" ).from( e ).to( goal );
+                connect( d ).to( e ).via( "d <-> e" );
+                connect( e ).to( goal ).via( "e <-> goal" );
             }
 
         } );

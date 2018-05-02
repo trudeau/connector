@@ -16,26 +16,27 @@ package org.nnsoft.trudeau.connector;
  *   limitations under the License.
  */
 
-import static com.google.common.base.Preconditions.checkState;
-
 /**
  * TODO fill me!!
  *
  * @param <V> the Graph vertices type
  */
-public abstract class AbstractMutableGraphConnection<V>
-    implements MutableGraphConnection<V>
+public abstract class AbstractGraphDescription<V>
+    implements GraphDescription<V>
 {
 
-    private MutableGraphConnector<V> connector;
+    private Grapher<V> grapher;
 
     /**
      * {@inheritDoc}
      */
-    public final void connect( MutableGraphConnector<V> connector )
+    public final void connect( Grapher<V> connector )
     {
-        checkState( this.connector == null, "Re-entry not allowed!" );
-        this.connector = connector;
+        if ( this.grapher != null )
+        {
+            throw new IllegalStateException( "Re-entry not allowed!" );
+        }
+        this.grapher = connector;
 
         try
         {
@@ -43,7 +44,7 @@ public abstract class AbstractMutableGraphConnection<V>
         }
         finally
         {
-            this.connector = null;
+            this.grapher = null;
         }
     }
 
@@ -56,12 +57,12 @@ public abstract class AbstractMutableGraphConnection<V>
      */
     protected final <N extends V> N addNode( N node )
     {
-        return connector.addNode( node );
+        return grapher.addNode( node );
     }
 
-    protected final <N extends V> TailVertexConnector<V> connect( N node )
+    protected final <N extends V> TailConnector<V> connect( N node )
     {
-        return connector.connect( node );
+        return grapher.connect( node );
     }
 
     /**

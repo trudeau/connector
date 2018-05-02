@@ -17,19 +17,30 @@ package org.nnsoft.trudeau.connector;
  */
 
 /**
- * TODO Fillme!!!
+ * TODO Fillme!!
  *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public interface MutableValueGraphConnection<V, E>
+public interface Grapher<V>
 {
 
     /**
-     * TODO Fillme!!
+     * Adds a new vertex to graph.
      *
-     * @param grapher
+     * @param <N> the Graph vertices type
+     * @param node the vertex to add
+     * @return the vertex added
      */
-    void connect( MutableValueGraphConnector<V, E> grapher );
+    <N extends V> N addNode( N node );
+
+    /**
+     * Adds a new edge to graph.
+     *
+     * @param <A> the Graph edges type
+     * @param arc the edge to add.
+     * @return the {@link HeadConnector}
+     */
+    <H extends V> TailConnector<V> connect( H head );
 
 }

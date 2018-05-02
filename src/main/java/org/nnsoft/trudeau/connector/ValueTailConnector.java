@@ -21,15 +21,15 @@ package org.nnsoft.trudeau.connector;
  *
  * @param <V> the Graph vertices type
  */
-public interface TailVertexConnector<V>
+public interface ValueTailConnector<V, E>
 {
 
     /**
      * Specifies the tail vertex for the edge
      *
-     * @param <T> the Graph vertex type
+     * @param <N> the Graph vertex type
      * @param tail the tail vertex
      */
-    <T extends V> void to( T tail );
+    <N extends V> EdgeConnector<E> to( N tail );
 
 }

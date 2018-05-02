@@ -22,7 +22,7 @@ package org.nnsoft.trudeau.connector;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public interface MutableValueGraphConnector<V, E>
+public interface ValueGrapher<V, E>
 {
 
     /**
@@ -39,8 +39,8 @@ public interface MutableValueGraphConnector<V, E>
      *
      * @param <A> the Graph edges type
      * @param arc the edge to add.
-     * @return the {@link HeadVertexConnector}
+     * @return the {@link HeadConnector}
      */
-    <A extends E> HeadVertexConnector<V> addEdge( A arc );
+    <N extends V> ValueTailConnector<V, E> connect( N node );
 
 }

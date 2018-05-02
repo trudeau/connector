@@ -5,19 +5,19 @@ import com.google.common.graph.MutableGraph;
 /**
  * TODO Fillme!!!
  *
- * @param <V> the Graph vertices type
+ * @param <N> the Graph nodes type
  * @param <E> the Graph edges type
  * @param <G> the Graph type
  */
-public interface LinkedMutableGraphBuilder<V, G extends MutableGraph<V>>
+public interface LinkedGraphBuilder<N, G extends MutableGraph<N>>
 {
 
     /**
      * Connects the graph.
      *
-     * @param graphConnection the {@link MutableValueGraphConnection}
+     * @param graphDescription the {@link ValueGraphDescription}
      * @return the {@link org.nnsoft.trudeau.Graph} built from the connections.
      */
-    G withConnections( MutableGraphConnection<V> graphConnection );
+    G createConnections( GraphDescription<N> graphDescription );
 
 }

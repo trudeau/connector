@@ -22,7 +22,7 @@ package org.nnsoft.trudeau.connector;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public interface MutableGraphConnection<V>
+public interface ValueGraphDescription<V, E>
 {
 
     /**
@@ -30,6 +30,6 @@ public interface MutableGraphConnection<V>
      *
      * @param grapher
      */
-    void connect( MutableGraphConnector<V> grapher );
+    void describe( ValueGrapher<V, E> grapher );
 
 }
