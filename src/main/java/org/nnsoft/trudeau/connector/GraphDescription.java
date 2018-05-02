@@ -30,6 +30,6 @@ public interface GraphDescription<V>
      *
      * @param grapher
      */
-    void connect( Grapher<V> grapher );
+    void describe( Grapher<V> grapher );
 
 }

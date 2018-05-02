@@ -69,7 +69,8 @@ public final class GraphConnectorTestCase
         on( actual ).createConnections( new AbstractGraphDescription<String>()
         {
 
-            public void connect()
+            @Override
+            public void describe()
             {
                 String start = addNode( "start" );
                 String a = addNode( "a" );
@@ -135,6 +136,7 @@ public final class GraphConnectorTestCase
         on( actual ).createConnections( new AbstractValueGraphDescription<String, String>()
         {
 
+            @Override
             public void describe()
             {
                 String start = addNode( "start" );

@@ -30,7 +30,7 @@ public abstract class AbstractGraphDescription<V>
     /**
      * {@inheritDoc}
      */
-    public final void connect( Grapher<V> connector )
+    public final void describe( Grapher<V> connector )
     {
         if ( this.grapher != null )
         {
@@ -40,7 +40,7 @@ public abstract class AbstractGraphDescription<V>
 
         try
         {
-            connect();
+            describe();
         }
         finally
         {
@@ -68,6 +68,6 @@ public abstract class AbstractGraphDescription<V>
     /**
      * Connects the graph.
      */
-    public abstract void connect();
+    public abstract void describe();
 
 }

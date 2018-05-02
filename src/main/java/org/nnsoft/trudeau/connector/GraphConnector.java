@@ -35,7 +35,7 @@ public final class GraphConnector
             {
                 final GraphDescription<N> checkedGraphConnection =
                     requireNonNull( graphConnection, "Input graph cannot be configured with null connections" );
-                checkedGraphConnection.connect( new Grapher<N>()
+                checkedGraphConnection.describe( new Grapher<N>()
                 {
 
                     @Override
